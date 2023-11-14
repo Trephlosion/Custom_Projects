@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Drawingtest</string>
+    <string name="tvSandbox">Free Style</string>
+    <string name="tvOptions">Options</string>
+    <string name="tvGuess">Palette Panic!</string>
+    <string name="tvBlind">Ink-lipse</string>
+    <string name="tvCollab">Dye-lemma!</string>
+    <string name="tvTrace">Echo-Sketch</string>
+    <string-array name="tvTheme">
+        <item>Colorful Theme</item>
+        <item>Moonlit Theme</item>
+        <item>Pastel Theme</item>
+<!--        <item>Use Device Appearance</item>-->
+    </string-array>
+    <string name="etNumPplHint">Number Of People</string>
+    <string name="etNumPpl">3</string>
+    <string name="tvLoad">Loading</string>
+    <string name="tvSave">Save Drawings?</string>
+    <string name="tvVolSlider">Volume</string>
+    <string name="tvSFxSlider">Sound Effects</string>
+    <string name="tvCredits">Credits</string>
+    <string name="tvCredits1">Made by: Rodney Whitney III Fall-2023</string>
+    <string name="tvCredits2">Final Project For Mobile Programming</string>
+    <string name="ivHamburger">Menu</string>
+    <string name="tvTitle">Artist Arcade</string>
+<!--INSERT ARRAY FOR THE RANDOM TOPICS: USE CHAT OR SOMETHING TO GENERATE LIST OF ~30 ITEMS-->
+</resources>
