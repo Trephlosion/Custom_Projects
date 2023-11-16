@@ -55,8 +55,18 @@ public class MainActivity extends AppCompatActivity {
 
     // Click event for the "Rules" buttons
     public void onRulesButtonClick(View view) {
-        showToast("Rules Button Clicked");
-        // You can add logic to open a rules activity or show rules dialog
+        int viewId = view.getId();
+
+        if (viewId == R.id.btpp) {// Handle click for image 1
+            showToast("Image 1 Clicked");
+        } else if (viewId == R.id.btcollab) {// Handle click for image 2
+            showToast("Image 2 Clicked");
+        } else if (viewId == R.id.btblind) {// Handle click for image 3
+            showToast("Image 3 Clicked");
+        } else if (viewId == R.id.bttrace) {// Handle click for image 4
+            showToast("Image 4 Clicked");
+            // Add more cases for other images as needed
+        }
     }
 
     private void showToast(String message) {

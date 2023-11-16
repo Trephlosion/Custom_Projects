@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/guess"
+                android:src="@drawable/guess1"
                 android:scaleType="centerCrop"
                 android:clickable="true"
                 android:onClick="onImageClick"
@@ -48,10 +48,11 @@
                 android:textAlignment="center"/>
 
             <Button
+                android:id="@+id/btpp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rules"
-                android:onClick="onRulesButtonClick"/>
+                android:onClick="onRulesButtonClick"
+                android:text="Rules" />
         </LinearLayout>
 
         <!-- Item 2 -->
@@ -68,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/collab"
+                android:src="@drawable/collab1"
                 android:scaleType="centerCrop"
                 android:clickable="true"
                 android:onClick="onImageClick"
@@ -81,10 +82,11 @@
                 android:textAlignment="center" />
 
             <Button
+                android:id="@+id/btcollab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rules"
-                android:onClick="onRulesButtonClick"/>
+                android:onClick="onRulesButtonClick"
+                android:text="Rules" />
         </LinearLayout>
 
 
@@ -102,7 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/blind"
+                android:src="@drawable/blind3"
                 android:scaleType="centerCrop"
                 android:clickable="true"
                 android:onClick="onImageClick"
@@ -115,10 +117,11 @@
                 android:textAlignment="center" />
 
             <Button
+                android:id="@+id/btblind"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rules"
-                android:onClick="onRulesButtonClick"/>
+                android:onClick="onRulesButtonClick"
+                android:text="Rules" />
         </LinearLayout>
 
 
@@ -136,7 +139,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/trace"
+                android:src="@drawable/trace1"
                 android:scaleType="centerCrop"
                 android:clickable="true"
                 android:onClick="onImageClick"
@@ -149,10 +152,11 @@
                 android:textAlignment="center" />
 
             <Button
+                android:id="@+id/bttrace"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rules"
-                android:onClick="onRulesButtonClick"/>
+                android:onClick="onRulesButtonClick"
+                android:text="Rules" />
         </LinearLayout>
 
     </GridLayout>

@@ -32,7 +32,55 @@
                 android:id="@+id/btnTool1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tool 1" />
+                android:text="Save" />
+
+            <Button
+                android:id="@+id/btnTool2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Undo" />
+
+            <Button
+                android:id="@+id/btnTool3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Redo" />
+
+            <Button
+                android:id="@+id/btnTool4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Color Wheel" />
+
+            <Button
+                android:id="@+id/btnTool5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eraser" />
+
+            <Button
+                android:id="@+id/btnTool6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brush" />
+
+            <Button
+                android:id="@+id/btnTool7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pencil" />
+
+            <Button
+                android:id="@+id/btnTool8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bucket" />
+
+            <Button
+                android:id="@+id/btnTool9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Extras" />
 
             <!-- Add more buttons as needed -->
 
