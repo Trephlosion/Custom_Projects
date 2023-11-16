@@ -15,7 +15,8 @@ import android.view.View;
 public class DrawingView extends View {
 
     private Path drawPath;
-    private Paint drawPaint, canvasPaint;
+    private static Paint drawPaint;
+    private Paint canvasPaint;
     private Canvas drawCanvas;
     private Bitmap canvasBitmap;
 
@@ -71,7 +72,7 @@ public class DrawingView extends View {
         return true;
     }
 
-    public void setColor(int color) {
+    public static void setColor(int color) {
         drawPaint.setColor(color);
     }
 

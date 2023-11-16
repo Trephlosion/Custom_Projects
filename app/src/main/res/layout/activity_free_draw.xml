@@ -50,7 +50,7 @@
                 android:id="@+id/btnTool4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Color Wheel" />
+                android:text="Color Palette" />
 
             <Button
                 android:id="@+id/btnTool5"

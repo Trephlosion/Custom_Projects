@@ -1,16 +1,33 @@
 package com.example.drawingtest;
 
+import android.graphics.Path;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.service.credentials.Action;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ToggleButton;
-
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.View;
+
+import java.util.Stack;
 
 
 public class FreeDraw extends AppCompatActivity {
@@ -29,7 +46,8 @@ public class FreeDraw extends AppCompatActivity {
     private Button bucket;
     private Button more;
 
-
+//    private static Stack<DrawingAction> drawingActions = new Stack<>();
+//    private Stack<DrawingAction> redoActions = new Stack<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +58,11 @@ public class FreeDraw extends AppCompatActivity {
         sideMenu = findViewById(R.id.sideMenu);
         btnToggleMenu = findViewById(R.id.btnToggleMenu);
 
+
+
         setupMenuButtons();
         setupToggleButton();
+
 
     }
 
@@ -55,7 +76,9 @@ public class FreeDraw extends AppCompatActivity {
         pencil = findViewById(R.id.btnTool7);
         bucket = findViewById(R.id.btnTool8);
         more = findViewById(R.id.btnTool9);
-        // Set up other buttons as needed
+
+        // Set undo history
+
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,19 +88,19 @@ public class FreeDraw extends AppCompatActivity {
         });
         // Set up other button click listeners
 
-        undo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Handle tool 1 click
-            }
-        });
-
-        redo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Handle tool 1 click
-            }
-        });
+//        undo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                undoDrawingAction();
+//            }
+//        });
+//
+//        redo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                redoDrawingAction();
+//            }
+//        });
 
         color.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,7 +194,7 @@ public class FreeDraw extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle color selection, e.g., set color for your tool
                 int selectedColor = ((ColorDrawable) red.getBackground()).getColor();
-                // TODO: Apply the selected color to your tool
+                DrawingView.setColor(selectedColor);
                 popupWindow.dismiss();
             }
         });
@@ -182,7 +205,7 @@ public class FreeDraw extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle color selection, e.g., set color for your tool
                 int selectedColor = ((ColorDrawable) orange.getBackground()).getColor();
-                // TODO: Apply the selected color to your tool
+                DrawingView.setColor(selectedColor);
                 popupWindow.dismiss();
             }
         });
@@ -193,7 +216,7 @@ public class FreeDraw extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle color selection, e.g., set color for your tool
                 int selectedColor = ((ColorDrawable) yellow.getBackground()).getColor();
-                // TODO: Apply the selected color to your tool
+                DrawingView.setColor(selectedColor);
                 popupWindow.dismiss();
             }
         });
@@ -204,7 +227,7 @@ public class FreeDraw extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle color selection, e.g., set color for your tool
                 int selectedColor = ((ColorDrawable) green.getBackground()).getColor();
-                // TODO: Apply the selected color to your tool
+                DrawingView.setColor(selectedColor);
                 popupWindow.dismiss();
             }
         });
@@ -215,7 +238,7 @@ public class FreeDraw extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle color selection, e.g., set color for your tool
                 int selectedColor = ((ColorDrawable) lime.getBackground()).getColor();
-                // TODO: Apply the selected color to your tool
+                DrawingView.setColor(selectedColor);
                 popupWindow.dismiss();
             }
         });
@@ -226,7 +249,7 @@ public class FreeDraw extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle color selection, e.g., set color for your tool
                 int selectedColor = ((ColorDrawable) blue.getBackground()).getColor();
-                // TODO: Apply the selected color to your tool
+                DrawingView.setColor(selectedColor);
                 popupWindow.dismiss();
             }
         });
@@ -237,7 +260,7 @@ public class FreeDraw extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle color selection, e.g., set color for your tool
                 int selectedColor = ((ColorDrawable) lightblue.getBackground()).getColor();
-                // TODO: Apply the selected color to your tool
+                DrawingView.setColor(selectedColor);
                 popupWindow.dismiss();
             }
         });
@@ -248,7 +271,7 @@ public class FreeDraw extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle color selection, e.g., set color for your tool
                 int selectedColor = ((ColorDrawable) violet.getBackground()).getColor();
-                // TODO: Apply the selected color to your tool
+                DrawingView.setColor(selectedColor);
                 popupWindow.dismiss();
             }
         });
@@ -259,7 +282,7 @@ public class FreeDraw extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle color selection, e.g., set color for your tool
                 int selectedColor = ((ColorDrawable) brown.getBackground()).getColor();
-                // TODO: Apply the selected color to your tool
+                DrawingView.setColor(selectedColor);
                 popupWindow.dismiss();
             }
         });
@@ -270,7 +293,7 @@ public class FreeDraw extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle color selection, e.g., set color for your tool
                 int selectedColor = ((ColorDrawable) pink.getBackground()).getColor();
-                // TODO: Apply the selected color to your tool
+                DrawingView.setColor(selectedColor);
                 popupWindow.dismiss();
             }
         });
@@ -281,7 +304,7 @@ public class FreeDraw extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle color selection, e.g., set color for your tool
                 int selectedColor = ((ColorDrawable) white.getBackground()).getColor();
-                // TODO: Apply the selected color to your tool
+                DrawingView.setColor(selectedColor);
                 popupWindow.dismiss();
             }
         });
@@ -293,7 +316,7 @@ public class FreeDraw extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle color selection, e.g., set color for your tool
                 int selectedColor = ((ColorDrawable) gray.getBackground()).getColor();
-                // TODO: Apply the selected color to your tool
+                DrawingView.setColor(selectedColor);
                 popupWindow.dismiss();
             }
         });
@@ -304,7 +327,7 @@ public class FreeDraw extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle color selection, e.g., set color for your tool
                 int selectedColor = ((ColorDrawable) black.getBackground()).getColor();
-                // TODO: Apply the selected color to your tool
+                DrawingView.setColor(selectedColor);
                 popupWindow.dismiss();
             }
         });
@@ -315,4 +338,110 @@ public class FreeDraw extends AppCompatActivity {
         popupWindow.showAsDropDown(anchorView);
     }
 
+//    private void undoDrawingAction() {
+//        if (!drawingActions.isEmpty()) {
+//            redoActions.push(drawingActions.pop());
+//            drawingView.invalidate();
+//        }
+//    }
+//
+//    private void redoDrawingAction() {
+//        if (!redoActions.isEmpty()) {
+//            drawingActions.push(redoActions.pop());
+//            drawingView.invalidate();
+//        }
+//    }
+//
+//    private static class DrawingView extends View {
+//
+//        private Paint paint;
+//        private Canvas canvas;
+//        private Bitmap bitmap;
+//        private float startX, startY;
+//
+//        public DrawingView(Context context) {
+//            super(context);
+//            init();
+//        }
+//        public static void setColor(int color) {
+//            com.example.drawingtest.DrawingView.setColor(color);
+//        }
+//
+//
+//        private void init() {
+//            paint = new Paint();
+//            paint.setAntiAlias(true);
+//            paint.setStrokeCap(Paint.Cap.ROUND);
+//            paint.setStrokeWidth(5f);
+//            paint.setColor(getResources().getColor(android.R.color.black));
+//
+//            bitmap = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
+//            canvas = new Canvas(bitmap);
+//        }
+//
+//        @Override
+//        protected void onDraw(Canvas canvas) {
+//            super.onDraw(canvas);
+//            canvas.drawBitmap(bitmap, 0, 0, null);
+//
+//            // Draw the current drawing action
+//            for (DrawingAction action : drawingActions) {
+//                canvas.drawPath(action.path, action.paint);
+//            }
+//        }
+//
+//        @Override
+//        public boolean onTouchEvent(MotionEvent event) {
+//            float x = event.getX();
+//            float y = event.getY();
+//
+//            switch (event.getAction()) {
+//                case MotionEvent.ACTION_DOWN:
+//                    startDrawingAction(x, y);
+//                    break;
+//                case MotionEvent.ACTION_MOVE:
+//                    updateDrawingAction(x, y);
+//                    break;
+//                case MotionEvent.ACTION_UP:
+//                    endDrawingAction();
+//                    break;
+//            }
+//
+//            return true;
+//        }
+//
+//        private void startDrawingAction(float x, float y) {
+//            DrawingAction drawingAction = new DrawingAction();
+//            drawingAction.paint = new Paint(paint);
+//            drawingAction.path.moveTo(x, y);
+//            drawingAction.path.lineTo(x, y);
+//            drawingActions.push(drawingAction);
+//            startX = x;
+//            startY = y;
+//        }
+//
+//        private void updateDrawingAction(float x, float y) {
+//            if (!drawingActions.isEmpty()) {
+//                DrawingAction currentAction = drawingActions.peek();
+//                currentAction.path.quadTo(startX, startY, (x + startX) / 2, (y + startY) / 2);
+//                startX = x;
+//                startY = y;
+//                invalidate();
+//            }
+//        }
+//
+//        private void endDrawingAction() {
+//            // You may want to save the current drawing state here
+//            invalidate();
+//        }
+//    }
+//
+//    private static class DrawingAction {
+//        private Path path;
+//        private Paint paint;
+//
+//        public DrawingAction() {
+//            path = new Path();
+//        }
+//    }
 }
