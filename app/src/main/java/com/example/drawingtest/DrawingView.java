@@ -18,11 +18,19 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.PopupWindow;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class DrawingView extends View {
 
     private Path drawPath;
+
+    private static final float TOUCH_TOLERANCE = 4;
+    private float mX, mY;
+    private Path mPath;
+    private ArrayList<Stroke> paths = new ArrayList<>();
+    private int currentColor;
+    private int strokeWidth;
     public static Paint drawPaint;
     private Paint canvasPaint;
     private Canvas drawCanvas;
@@ -57,6 +65,7 @@ public class DrawingView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        canvas.save();
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
         canvas.drawPath(drawPath, drawPaint);
     }
@@ -75,7 +84,6 @@ public class DrawingView extends View {
             case MotionEvent.ACTION_UP:
                 drawCanvas.drawPath(drawPath, drawPaint);
                 drawPath.reset();
-                autoSave();
                 break;
             default:
                 return false;
@@ -95,6 +103,7 @@ public class DrawingView extends View {
     public void clearCanvas() {
         drawCanvas.drawColor(Color.WHITE);
         invalidate();
+        drawCanvas.restoreToCount(1);
     }
 
     public void autoSave(){
@@ -102,19 +111,19 @@ public class DrawingView extends View {
 //        drawCanvas.getSaveCount();
     }
 
-    public void saveCanvas(){
-        autoSave();
-        invalidate();
+    public Bitmap saveCanvas(){
+       return canvasBitmap;
+
 
     }
 
     public void undo() {
-//        drawCanvas.restore();
-        drawPath.rewind();
-        if (drawCanvas.getSaveCount() <= 5) {
-            drawCanvas.restoreToCount(historyCount);
-        }
-    }
+        // Check if there are any strokes to undo.
+        if (paths.size() != 0) {
+            paths.remove(paths.size() - 1);
+            invalidate();
+        }        }
+
 
 
     public void showColorPicker(View anchorView) {
@@ -289,6 +298,7 @@ public class DrawingView extends View {
         popupWindow.showAsDropDown(anchorView);
     }
 
+
     public void toolChanger(char tool){
         switch(tool){
             case 'b': toBrush();
@@ -297,7 +307,9 @@ public class DrawingView extends View {
             break;
             case 'e': toEraser();
             break;
-            case 'f': toBucket(canvasBitmap, event);
+//            case 'f': toBucket(canvasBitmap, MotionEvent.obtain(MotionEvent.this), , drawPaint.getColor() );
+//            break;
+
 
         }
     }
@@ -308,7 +320,6 @@ public class DrawingView extends View {
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
         drawPaint.setStrokeCap(Paint.Cap.ROUND);
-        drawPaint.setAlpha(100);
     }
 
     private void toPencil(){
@@ -317,7 +328,6 @@ public class DrawingView extends View {
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.BEVEL);
         drawPaint.setStrokeCap(Paint.Cap.SQUARE);
-        drawPaint.setAlpha(100);
 
     }
 
@@ -332,12 +342,11 @@ public class DrawingView extends View {
         drawPaint.setColor(Color.WHITE);
     }
 
-    public static void toBucket(Bitmap bitmap, MotionEvent event, int targetColor,
-                                int replacementColor) {
+    public static void toBucket(Bitmap bitmap, MotionEvent event,
+                                int targetColor, int replacementColor) {
         // Create a stack to store the coordinates of the pixels that need to be processed.
         Stack<Point> stack = new Stack<>();
 
-        drawPaint.setAlpha(100); // make sure the alpha levels are 100
         // Add the starting point to the stack.
 
         float touchX = event.getX();
@@ -377,9 +386,10 @@ public class DrawingView extends View {
                 }
             }
         }
+
     }
 
     public void sizeChanger(){
-        setBrushSize(5);
+        setBrushSize(10);
     }
 }
