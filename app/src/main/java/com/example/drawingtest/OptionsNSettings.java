@@ -38,6 +38,9 @@ public class OptionsNSettings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options_nsettings);
 
+        // default
+        Participants.setText(defaultnum);
+
         // Find views
         RadioGroup radioGroupTheme = findViewById(R.id.radioGroupTheme);
         EditText Participants = findViewById(R.id.editTextParticipants);
@@ -46,8 +49,6 @@ public class OptionsNSettings extends AppCompatActivity {
         SeekBar seekBarSoundEffect = findViewById(R.id.seekBarSoundEffect);
 
 
-        // default
-        Participants.setText("defaultnum");
 
 
         seekBarVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -100,7 +101,7 @@ public class OptionsNSettings extends AppCompatActivity {
             }
         });
     }
-
+//remove this
 
 
     public void onApplyButtonClick(View view) {

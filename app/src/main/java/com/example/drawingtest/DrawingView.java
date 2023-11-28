@@ -8,17 +8,28 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.PopupWindow;
+
+import java.util.Stack;
 
 public class DrawingView extends View {
 
     private Path drawPath;
-    private static Paint drawPaint;
+    public static Paint drawPaint;
     private Paint canvasPaint;
     private Canvas drawCanvas;
     private Bitmap canvasBitmap;
+
+    public int historyCount;
+
 
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -64,6 +75,7 @@ public class DrawingView extends View {
             case MotionEvent.ACTION_UP:
                 drawCanvas.drawPath(drawPath, drawPaint);
                 drawPath.reset();
+                autoSave();
                 break;
             default:
                 return false;
@@ -83,5 +95,291 @@ public class DrawingView extends View {
     public void clearCanvas() {
         drawCanvas.drawColor(Color.WHITE);
         invalidate();
+    }
+
+    public void autoSave(){
+        drawCanvas.save();
+//        drawCanvas.getSaveCount();
+    }
+
+    public void saveCanvas(){
+        autoSave();
+        invalidate();
+
+    }
+
+    public void undo() {
+//        drawCanvas.restore();
+        drawPath.rewind();
+        if (drawCanvas.getSaveCount() <= 5) {
+            drawCanvas.restoreToCount(historyCount);
+        }
+    }
+
+
+    public void showColorPicker(View anchorView) {
+        // Inflate the color picker layout
+        View colorPickerView =
+                LayoutInflater.from(getContext()).inflate(R.layout.color_picker_layout, null);
+
+        // Set up the PopupWindow
+        final PopupWindow popupWindow = new PopupWindow(
+                colorPickerView,
+                GridLayout.LayoutParams.WRAP_CONTENT,
+                GridLayout.LayoutParams.WRAP_CONTENT,
+                true
+        );
+        popupWindow.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                // Handle color picker dismissed
+            }
+        });
+
+        // Set up color buttons
+        Button red = colorPickerView.findViewById(R.id.red);
+        red.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle color selection, e.g., set color for your tool
+                int selectedColor = ((ColorDrawable) red.getBackground()).getColor();
+                DrawingView.setColor(selectedColor);
+                popupWindow.dismiss();
+            }
+        });
+
+        Button orange = colorPickerView.findViewById(R.id.orange);
+        orange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle color selection, e.g., set color for your tool
+                int selectedColor = ((ColorDrawable) orange.getBackground()).getColor();
+                DrawingView.setColor(selectedColor);
+                popupWindow.dismiss();
+            }
+        });
+
+        Button yellow = colorPickerView.findViewById(R.id.yellow);
+        yellow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle color selection, e.g., set color for your tool
+                int selectedColor = ((ColorDrawable) yellow.getBackground()).getColor();
+                DrawingView.setColor(selectedColor);
+                popupWindow.dismiss();
+            }
+        });
+
+        Button green = colorPickerView.findViewById(R.id.green);
+        green.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle color selection, e.g., set color for your tool
+                int selectedColor = ((ColorDrawable) green.getBackground()).getColor();
+                DrawingView.setColor(selectedColor);
+                popupWindow.dismiss();
+            }
+        });
+
+        Button lime = colorPickerView.findViewById(R.id.lime);
+        lime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle color selection, e.g., set color for your tool
+                int selectedColor = ((ColorDrawable) lime.getBackground()).getColor();
+                DrawingView.setColor(selectedColor);
+                popupWindow.dismiss();
+            }
+        });
+
+        Button blue = colorPickerView.findViewById(R.id.blue);
+        blue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle color selection, e.g., set color for your tool
+                int selectedColor = ((ColorDrawable) blue.getBackground()).getColor();
+                DrawingView.setColor(selectedColor);
+                popupWindow.dismiss();
+            }
+        });
+
+        Button lightblue = colorPickerView.findViewById(R.id.lightblue);
+        lightblue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle color selection, e.g., set color for your tool
+                int selectedColor = ((ColorDrawable) lightblue.getBackground()).getColor();
+                DrawingView.setColor(selectedColor);
+                popupWindow.dismiss();
+            }
+        });
+
+        Button violet = colorPickerView.findViewById(R.id.violet);
+        violet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle color selection, e.g., set color for your tool
+                int selectedColor = ((ColorDrawable) violet.getBackground()).getColor();
+                DrawingView.setColor(selectedColor);
+                popupWindow.dismiss();
+            }
+        });
+
+        Button brown = colorPickerView.findViewById(R.id.brown);
+        brown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle color selection, e.g., set color for your tool
+                int selectedColor = ((ColorDrawable) brown.getBackground()).getColor();
+                DrawingView.setColor(selectedColor);
+                popupWindow.dismiss();
+            }
+        });
+
+        Button pink = colorPickerView.findViewById(R.id.pink);
+        pink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle color selection, e.g., set color for your tool
+                int selectedColor = ((ColorDrawable) pink.getBackground()).getColor();
+                DrawingView.setColor(selectedColor);
+                popupWindow.dismiss();
+            }
+        });
+
+        Button white = colorPickerView.findViewById(R.id.white);
+        white.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle color selection, e.g., set color for your tool
+                int selectedColor = ((ColorDrawable) white.getBackground()).getColor();
+                DrawingView.setColor(selectedColor);
+                popupWindow.dismiss();
+            }
+        });
+
+
+        Button gray = colorPickerView.findViewById(R.id.gray);
+        gray.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle color selection, e.g., set color for your tool
+                int selectedColor = ((ColorDrawable) gray.getBackground()).getColor();
+                DrawingView.setColor(selectedColor);
+                popupWindow.dismiss();
+            }
+        });
+
+        Button black = colorPickerView.findViewById(R.id.black);
+        black.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle color selection, e.g., set color for your tool
+                int selectedColor = ((ColorDrawable) black.getBackground()).getColor();
+                DrawingView.setColor(selectedColor);
+                popupWindow.dismiss();
+            }
+        });
+
+        // Add more color buttons and their click listeners as needed
+
+        // Show the PopupWindow
+        popupWindow.showAsDropDown(anchorView);
+    }
+
+    public void toolChanger(char tool){
+        switch(tool){
+            case 'b': toBrush();
+            break;
+            case 'p': toPencil();
+            break;
+            case 'e': toEraser();
+            break;
+            case 'f': toBucket(canvasBitmap, event);
+
+        }
+    }
+
+    private void toBrush(){
+        drawPaint.setAntiAlias(true);
+        sizeChanger();
+        drawPaint.setStyle(Paint.Style.STROKE);
+        drawPaint.setStrokeJoin(Paint.Join.ROUND);
+        drawPaint.setStrokeCap(Paint.Cap.ROUND);
+        drawPaint.setAlpha(100);
+    }
+
+    private void toPencil(){
+        drawPaint.setAntiAlias(false);
+        sizeChanger();
+        drawPaint.setStyle(Paint.Style.STROKE);
+        drawPaint.setStrokeJoin(Paint.Join.BEVEL);
+        drawPaint.setStrokeCap(Paint.Cap.SQUARE);
+        drawPaint.setAlpha(100);
+
+    }
+
+
+    private void toEraser(){
+        drawPaint.setAntiAlias(true);
+        sizeChanger();
+        drawPaint.setStyle(Paint.Style.STROKE);
+        drawPaint.setStrokeJoin(Paint.Join.ROUND);
+        drawPaint.setStrokeCap(Paint.Cap.ROUND);
+        // Set the color of the eraser to the canvas color.
+        drawPaint.setColor(Color.WHITE);
+    }
+
+    public static void toBucket(Bitmap bitmap, MotionEvent event, int targetColor,
+                                int replacementColor) {
+        // Create a stack to store the coordinates of the pixels that need to be processed.
+        Stack<Point> stack = new Stack<>();
+
+        drawPaint.setAlpha(100); // make sure the alpha levels are 100
+        // Add the starting point to the stack.
+
+        float touchX = event.getX();
+        float touchY = event.getY();
+
+
+        stack.push(new Point((int) touchX, (int) touchY));
+
+        // While the stack is not empty, process the next pixel.
+        while (!stack.isEmpty()) {
+            // Get the next pixel from the stack.
+            Point point = stack.pop();
+
+            // Get the color of the pixel.
+            int color = bitmap.getPixel(point.x, point.y);
+
+            // If the color of the pixel is the target color, replace it with the replacement color.
+            if (color == targetColor) {
+                bitmap.setPixel(point.x, point.y, replacementColor);
+
+                // Add the neighboring pixels to the stack.
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        if (i != 0 || j != 0) {
+                            int newX = point.x + i;
+                            int newY = point.y + j;
+
+                            if (newX >= 0 && newX < bitmap.getWidth() && newY >= 0 && newY < bitmap.getHeight()) {
+                                int newColor = bitmap.getPixel(newX, newY);
+
+                                if (newColor == targetColor) {
+                                    stack.push(new Point(newX, newY));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void sizeChanger(){
+        setBrushSize(5);
     }
 }
