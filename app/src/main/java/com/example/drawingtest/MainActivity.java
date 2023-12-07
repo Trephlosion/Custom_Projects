@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (viewId == R.id.ivBlind) {// Handle click for image 3
             showToast("Image 3 Clicked");
         } else if (viewId == R.id.ivTrace) {// Handle click for image 4
-            showToast("Image 4 Clicked");
+            startActivity(new Intent(this, ImgRecognitionTest.class));
+            showToast("Echo Sketch Clicked");
             // Add more cases for other images as needed
         }
     }

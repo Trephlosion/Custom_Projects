@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Drawingtest"
         tools:targetApi="31">
         <activity
+            android:name=".ImgRecognitionTest"
+            android:exported="false" />
+        <activity
             android:name=".DrawingView"
             android:exported="false" />
         <activity

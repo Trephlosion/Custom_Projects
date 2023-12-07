@@ -38,9 +38,9 @@ public class FreeDraw extends AppCompatActivity {
 
     private Button save;
     private Button undo;
-    private Button clear;
-    private Button color;
-    private Button erase;
+    public Button clear;
+    public Button color;
+    public Button erase;
     private Button brush;
     private Button pencil;
     private Button bucket;
@@ -66,7 +66,7 @@ public class FreeDraw extends AppCompatActivity {
 
     }
 
-    private void setupMenuButtons() {  //set up all teh buttons
+    public void setupMenuButtons() {  //set up all teh buttons
         save = findViewById(R.id.btnTool1);
         undo = findViewById(R.id.btnTool2);
         clear = findViewById(R.id.btnTool3);
