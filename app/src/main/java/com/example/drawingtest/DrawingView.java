@@ -307,8 +307,8 @@ public class DrawingView extends View {
             break;
             case 'e': toEraser();
             break;
-//            case 'f': toBucket(canvasBitmap, MotionEvent.obtain(MotionEvent.this), , drawPaint.getColor() );
-//            break;
+            case 'f': toBucket(canvasBitmap, MotionEvent.obtain(MotionEvent.this), , drawPaint.getColor() );
+            break;
 
 
         }
