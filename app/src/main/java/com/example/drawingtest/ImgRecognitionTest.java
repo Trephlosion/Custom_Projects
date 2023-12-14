@@ -12,6 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.ToggleButton;
 
 class UnistrokeResult {
     String name;
@@ -449,6 +455,7 @@ public class ImgRecognitionTest extends AppCompatActivity {
 
     private double totalTime;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -483,9 +490,11 @@ while (Rounds >=1)
         Rounds--;
 
     }
-    if (Rounds == 0) {
-        Intent intent = new Intent(ImgRecognitionTest.this, MainActivity.class);
-    }
+        if (Rounds == 0) {
+            Intent intent = new Intent(ImgRecognitionTest.this, MainActivity.class);
+            startActivity(intent);
+            finish(); // Optional: Finish the current activity
+        }
     }
 
 

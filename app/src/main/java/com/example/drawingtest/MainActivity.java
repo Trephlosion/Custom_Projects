@@ -21,15 +21,17 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    private MediaPlayer Music;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MediaPlayer Music = new MediaPlayer();
-        Music = MediaPlayer.create(MainActivity.this, R.raw.menu);
-        Music.start();
+
+
+        Music = MediaPlayer.create(this, R.raw.menu);
         Music.setLooping(true);
+        Music.start();
 
 
 
@@ -70,9 +72,17 @@ public class MainActivity extends AppCompatActivity {
         // Handle item selection
         int itemId = item.getItemId();
         if (itemId == R.id.menu_free_style) {
+            if (Music != null) {
+                Music.release();
+                Music = null;
+            }
             startActivity(new Intent(this, FreeDraw.class));
             return true;
         } else if (itemId == R.id.menu_options || itemId == R.id.menu_gear_icon) {
+            if (Music != null) {
+                Music.release();
+                Music = null;
+            }
             startActivity(new Intent(this, Options.class));
             return true;
         }
@@ -129,6 +139,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Release resources when the activity is destroyed
+        if (Music != null) {
+            Music.release();
+            Music = null;
+        }
     }
 
     // This method is called when the options menu is created.

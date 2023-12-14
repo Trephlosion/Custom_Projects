@@ -2,6 +2,7 @@ package com.example.drawingtest;
 
 import android.graphics.Path;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.service.credentials.Action;
 import android.view.LayoutInflater;
@@ -46,6 +47,8 @@ public class FreeDraw extends AppCompatActivity {
     private Button bucket;
     private Button more;
 
+    private MediaPlayer Music;
+
 //    private static Stack<DrawingAction> drawingActions = new Stack<>();
 //    private Stack<DrawingAction> redoActions = new Stack<>();
     @Override
@@ -62,6 +65,12 @@ public class FreeDraw extends AppCompatActivity {
 
         setupMenuButtons();
         setupToggleButton();
+
+
+        Music = MediaPlayer.create(this, R.raw.minigame1);
+        Music.setLooping(true);
+        Music.start();
+
 
 
     }
@@ -169,6 +178,16 @@ public class FreeDraw extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Release resources when the activity is destroyed
+        if (Music != null) {
+            Music.release();
+            Music = null;
+        }
     }
 
 

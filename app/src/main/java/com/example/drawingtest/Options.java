@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Options extends AppCompatActivity {
 
     private AudioManager audioManager;
+    private MediaPlayer Music;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +30,11 @@ public class Options extends AppCompatActivity {
         TextView sfxLabel = findViewById(R.id.sfxLabel);
         SeekBar sfxSlider = findViewById(R.id.sfxSlider);
 
-        MediaPlayer Music = new MediaPlayer();
+
         Music = MediaPlayer.create(Options.this, R.raw.settin);
-        Music.start();
         Music.setLooping(true);
+        Music.start();
+
 
 
 
@@ -85,4 +87,15 @@ public class Options extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Release resources when the activity is destroyed
+        if (Music != null) {
+            Music.release();
+            Music = null;
+        }
+    }
+
 }

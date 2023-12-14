@@ -2,7 +2,9 @@ package com.example.drawingtest;
 
 // com.example.drawingtest.DrawingView
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.PopupWindow;
+import android.widget.SeekBar;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -24,6 +27,7 @@ import java.util.Stack;
 public class DrawingView extends View implements View.OnTouchListener {
 
     private Path drawPath;
+    private AlertDialog sizeDialog;
 
     private static final float TOUCH_TOLERANCE = 4;
     private float mX, mY;
@@ -300,37 +304,69 @@ public class DrawingView extends View implements View.OnTouchListener {
         popupWindow.showAsDropDown(anchorView);
     }
 
+    private void showSizeDialog(final char tool) {
+        // Inflate the layout for the dialog
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.size_dialog_layout, null);
 
-    public void toolChanger(char tool){
-        switch(tool){
-            case 'b': toBrush();
-            break;
-            case 'p': toPencil();
-            break;
-            case 'e': toEraser();
-            break;
-//            case 'f': toBucket(canvasBitmap, MotionEvent.obtain(MotionEvent.this), , drawPaint.getColor() );
-//            break;
+        // Set up the dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(dialogView);
+        builder.setTitle("Select Size");
 
+        final SeekBar sizeSeekBar = dialogView.findViewById(R.id.sizeSeekBar);
 
+        // Set up the OK button click listener
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                float selectedSize = sizeSeekBar.getProgress() + 1; // Add 1 to avoid size 0
+                handleSizeSelection(selectedSize, tool);
+                dialog.dismiss();
+            }
+        });
+
+        // Set up the Cancel button click listener
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        // Create and show the dialog
+        sizeDialog = builder.create();
+        sizeDialog.show();
+    }
+    private void handleSizeSelection(float selectedSize, char tool) {
+        setBrushSize(selectedSize);
+
+        switch (tool) {
+            case 'b':
+                toBrush();
+                break;
+            case 'p':
+                toPencil();
+                break;
+            case 'e':
+                toEraser();
+                break;
+
+            // Handle other tools as needed
         }
     }
 
-    private void toBrush(){
+    private void toBrush() {
         drawPaint.setAntiAlias(true);
-        sizeChanger();
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
         drawPaint.setStrokeCap(Paint.Cap.ROUND);
     }
 
-    private void toPencil(){
+    private void toPencil() {
         drawPaint.setAntiAlias(false);
-        sizeChanger();
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.BEVEL);
         drawPaint.setStrokeCap(Paint.Cap.SQUARE);
-
     }
 
 
@@ -428,4 +464,7 @@ public class DrawingView extends View implements View.OnTouchListener {
         // Return the collected user points
         return userPoints;
     }
+
+
+
 }

@@ -30,6 +30,8 @@ public class SplashScreen extends AppCompatActivity {
     private Button btStart;
     private SharedPreferences sharedPreferences;
 
+    private MediaPlayer Music;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,9 @@ public class SplashScreen extends AppCompatActivity {
 
           progressBar.setProgress(0);
 
+        Music = MediaPlayer.create(SplashScreen.this, R.raw.title);
+        Music.start();
+        Music.setLooping(true);
         startLoading();
     }
 
@@ -56,11 +61,6 @@ public class SplashScreen extends AppCompatActivity {
 
         final Handler handler = new Handler();
 
-        MediaPlayer Music = new MediaPlayer();
-        Music = MediaPlayer.create(SplashScreen.this, R.raw.title);
-        Music.start();
-        Music.setLooping(true);
-        Toast.makeText(this, (String.valueOf(Music.isPlaying())), Toast.LENGTH_SHORT).show();
 
         handler.post(new Runnable() {
             @Override
@@ -154,4 +154,14 @@ public class SplashScreen extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Release resources when the activity is destroyed
+        if (Music != null) {
+            Music.release();
+            Music = null;
+        }
+    }
+
 }
