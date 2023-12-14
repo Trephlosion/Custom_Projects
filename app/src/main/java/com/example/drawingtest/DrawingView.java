@@ -21,14 +21,14 @@ import android.widget.PopupWindow;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class DrawingView extends View {
+public class DrawingView extends View implements View.OnTouchListener {
 
     private Path drawPath;
 
     private static final float TOUCH_TOLERANCE = 4;
     private float mX, mY;
     private Path mPath;
-    private ArrayList<Stroke> paths = new ArrayList<>();
+    private final ArrayList<Stroke> paths = new ArrayList<>();
     private int currentColor;
     private int strokeWidth;
     public static Paint drawPaint;
@@ -38,7 +38,7 @@ public class DrawingView extends View {
 
     public int historyCount;
 
-
+    private static final CGPointArray userPoints = new CGPointArray();
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setupDrawing();
@@ -74,12 +74,14 @@ public class DrawingView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         float touchX = event.getX();
         float touchY = event.getY();
+        CGPointArray path = new CGPointArray();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 drawPath.moveTo(touchX, touchY);
                 break;
             case MotionEvent.ACTION_MOVE:
                 drawPath.lineTo(touchX, touchY);
+
                 break;
             case MotionEvent.ACTION_UP:
                 drawCanvas.drawPath(drawPath, drawPaint);
@@ -307,8 +309,8 @@ public class DrawingView extends View {
             break;
             case 'e': toEraser();
             break;
-            case 'f': toBucket(canvasBitmap, MotionEvent.obtain(MotionEvent.this), , drawPaint.getColor() );
-            break;
+//            case 'f': toBucket(canvasBitmap, MotionEvent.obtain(MotionEvent.this), , drawPaint.getColor() );
+//            break;
 
 
         }
@@ -391,5 +393,39 @@ public class DrawingView extends View {
 
     public void sizeChanger(){
         setBrushSize(10);
+    }
+
+    /**
+     * Called when a touch event is dispatched to a view. This allows listeners to
+     * get a chance to respond before the target view.
+     *
+     * @param v     The view the touch event has been dispatched to.
+     * @param event The MotionEvent object containing full information about
+     *              the event.
+     * @return True if the listener has consumed the event, false otherwise.
+     */
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        float touchX = event.getX();
+        float touchY = event.getY();
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+                userPoints.add(new CGPoint(touchX, touchY));
+                // Optionally, you can do something with the points here as the user is drawing
+                invalidate(); // Redraw the view if needed
+                break;
+            case MotionEvent.ACTION_UP:
+                // Handle touch up event if needed
+                break;
+        }
+
+        return true; // Consume the touch event
+    }
+
+    public static CGPointArray createUserInput() {
+        // Return the collected user points
+        return userPoints;
     }
 }

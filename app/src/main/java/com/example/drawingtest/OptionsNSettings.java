@@ -32,7 +32,7 @@ public class OptionsNSettings extends AppCompatActivity {
 
         // Set the theme based on saved preferences or default to AppThemeLight
         int theme = getSharedPreferences("prefs", MODE_PRIVATE).getInt("theme", 0);
-        setTheme(theme == 0 ? R.style.Theme_Drawingtest : R.style.Theme_Drawingtest);
+        setTheme(R.style.Theme_Drawingtest);
 
 
         super.onCreate(savedInstanceState);

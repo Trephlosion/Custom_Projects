@@ -2,6 +2,7 @@ package com.example.drawingtest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.StateListAnimator;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,11 +40,9 @@ public class SplashScreen extends AppCompatActivity {
         ivAppName = findViewById(R.id.ivAppName);
         ivBrush = findViewById(R.id.ivBrush);
         btStart = findViewById(R.id.btStart);
-        sharedPreferences = getPreferences(MODE_PRIVATE);
+                sharedPreferences = getPreferences(MODE_PRIVATE);
 
-        // Load the previous progress or start from 0 if not available
-        int previousProgress = sharedPreferences.getInt("progress", 0);
-        progressBar.setProgress(previousProgress);
+          progressBar.setProgress(0);
 
         startLoading();
     }
@@ -50,11 +50,18 @@ public class SplashScreen extends AppCompatActivity {
     private void startLoading() {
         final int randomLoadingTime = new Random().nextInt(16) + 30; // 30 to 45 seconds
         final int totalProgressTime = randomLoadingTime * 1000;
-        final int interval = 100;
+        final int interval = 10;
 
         final int progressToIncrement = totalProgressTime / interval;
 
         final Handler handler = new Handler();
+
+        MediaPlayer Music = new MediaPlayer();
+        Music = MediaPlayer.create(SplashScreen.this, R.raw.title);
+        Music.start();
+        Music.setLooping(true);
+        Toast.makeText(this, (String.valueOf(Music.isPlaying())), Toast.LENGTH_SHORT).show();
+
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -98,6 +105,7 @@ public class SplashScreen extends AppCompatActivity {
                     public void onClick(View v) {
                         startTransition();
                     }
+
                 });
             }
         }, 5000); // Wait for 5 seconds after loading is complete

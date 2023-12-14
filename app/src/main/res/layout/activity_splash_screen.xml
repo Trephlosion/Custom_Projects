@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bgnight"
     tools:context=".SplashScreen">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_height="57dp"
         android:text="@string/tvLoad"
         android:textAlignment="center"
+        android:textColor="#FFFFFF"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,10 +27,9 @@
         android:layout_height="328dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.729"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.364"
+        app:layout_constraintVertical_bias="0.424"
         app:srcCompat="@drawable/title" />
 
     <ProgressBar
@@ -42,7 +43,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.787">
-<!--        android:progressDrawable="@drawable/rainbow_progress_bar"-->
+        <!--        android:progressDrawable="@drawable/rainbow_progress_bar"-->
     </ProgressBar>
 
     <ImageView

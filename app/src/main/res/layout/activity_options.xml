@@ -1,9 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Options">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!-- Volume Slider -->
+
+    <!-- Sound Effect Slider -->
+
+    <TextView
+        android:id="@+id/volumeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volume"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <SeekBar
+        android:id="@+id/volumeSlider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/volumeLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:max="100"
+        android:padding="16dp"
+        android:progress="100" />
+
+    <TextView
+        android:id="@+id/sfxLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SFX (Sound Effects)"
+        android:layout_below="@id/volumeSlider"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <SeekBar
+        android:id="@+id/sfxSlider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sfxLabel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:max="100"
+        android:padding="16dp"
+        android:progress="100" />
+
+    <!-- Add more options as needed -->
+
+    <Button
+        android:id="@+id/websiteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Visit Github"
+        android:layout_below="@id/sfxSlider"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+</RelativeLayout>
