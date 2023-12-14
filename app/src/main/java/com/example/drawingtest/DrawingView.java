@@ -304,7 +304,7 @@ public class DrawingView extends View implements View.OnTouchListener {
         popupWindow.showAsDropDown(anchorView);
     }
 
-    private void showSizeDialog(final char tool) {
+    public void showSizeDialog(final char tool) {
         // Inflate the layout for the dialog
         View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.size_dialog_layout, null);
 
@@ -336,6 +336,7 @@ public class DrawingView extends View implements View.OnTouchListener {
         // Create and show the dialog
         sizeDialog = builder.create();
         sizeDialog.show();
+
     }
     private void handleSizeSelection(float selectedSize, char tool) {
         setBrushSize(selectedSize);

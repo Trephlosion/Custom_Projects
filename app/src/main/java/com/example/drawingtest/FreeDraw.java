@@ -122,7 +122,7 @@ public class FreeDraw extends AppCompatActivity {
         erase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawingView.toolChanger('e');
+                drawingView.showSizeDialog('e');
                 // Handle tool 1 click
             }
         });
@@ -132,14 +132,14 @@ public class FreeDraw extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Handle tool 1 click
-                drawingView.toolChanger('b');
+                drawingView.showSizeDialog('b');
             }
         });
 
         pencil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawingView.toolChanger('p');
+                drawingView.showSizeDialog('p');
                 // Handle tool 1 click
             }
         });
@@ -147,7 +147,7 @@ public class FreeDraw extends AppCompatActivity {
         bucket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawingView.toolChanger('f');
+                drawingView.showSizeDialog('f');
                 // Handle tool 1 click
             }
         });
